@@ -16,6 +16,22 @@ import hk.ust.cse.comp3021.lab3.value.IntNumber;
  * All operands are instances of {@link IntNumber}.
  * Hint: Use the constant BigInteger.ONE and the method BigInteger.multiply(BigInteger) to implement the eval method
  */
-public class Multiplication {
+public class Multiplication implements Operator {
+    /**
+     * @return The BigInteger result after evaluating the multiplication operation
+     */
+    @Override
+    public Value operate(List<Expression> operands) {
+        var result = BigInteger.ONE;
+        for (var operand : operands) {
+            var value = (IntNumber) operand.eval();
+            result = result.multiply(value.getVal());
+        }
+        return new IntNumber(result);
+    }
 
+    @Override
+    public String symbol() {
+        return "*";
+    }
 }

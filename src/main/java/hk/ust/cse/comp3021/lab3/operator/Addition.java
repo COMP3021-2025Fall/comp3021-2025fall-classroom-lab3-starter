@@ -15,6 +15,20 @@ import hk.ust.cse.comp3021.lab3.value.IntNumber;
  * Addition should implement {@link Operator}, and will be used to construct {@link Operation} objects.
  * All operands are instances of {@link IntNumber}.
  */
-public class Addition {
+public class Addition implements Operator {
+ @Override
+    public Value operate(List<Expression> operands) {
+        var sum = BigInteger.ZERO;
+        for (var operand : operands) {
+            var value = (IntNumber) operand.eval();
+            sum = sum.add(value.getVal());
+        }
+        return new IntNumber(sum);
+    }
+
+    @Override
+    public String symbol() {
+        return "+";
+    }
 
 }

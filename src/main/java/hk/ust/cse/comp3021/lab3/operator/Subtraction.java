@@ -18,6 +18,24 @@ import hk.ust.cse.comp3021.lab3.value.IntNumber;
  * the first operand
  */
 
-public class Subtraction {
+public class Subtraction implements Operator {
+    @Override
+    public Value operate(List<Expression> operands) {
+        if (operands.size() == 1) {
+            var result = BigInteger.ZERO;
+            return new IntNumber(result.subtract(((IntNumber) operands.get(0).eval()).getVal()));
+        } else {
+            var result = ((IntNumber) operands.get(0).eval()).getVal();
+            for (var operand : operands.subList(1, operands.size())) {
+                var value = (IntNumber) operand.eval();
+                result = result.subtract(value.getVal());
+            }
+            return new IntNumber(result);
+        }
+    }
 
+    @Override
+    public String symbol() {
+        return "-";
+    }
 }
