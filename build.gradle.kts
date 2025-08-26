@@ -18,9 +18,10 @@
 // Use the `java` plugin - Enables automatic download of JDK
 plugins {
     java
+    application
 }
 
-group = "hk.ust.cse.comp3021.starter"
+group = "hk.ust.cse.comp3021.lab3"
 
 // Configures the `java` plugin
 java {
@@ -42,8 +43,12 @@ dependencies {
     testCompileOnly("org.jetbrains:annotations:22.0.0")
     // The below dependencies are for JUnit 5, a unit testing framework
     // We use these in MainTest.java
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.0")
+}
+
+application {
+    mainClass.set("hk.ust.cse.comp3021.lab3.Calculator")
 }
 
 // Configures Gradle tasks - Gradle tasks are similar to Make targets
@@ -54,8 +59,11 @@ tasks {
     // The two `withType` blocks below configures all tasks with the given type in the angle brackets (`<...>`)
     // This is necessary to enable preview features for Java 16
     withType<JavaCompile> {
+        options.compilerArgs = listOf("--enable-preview")
     }
     withType<JavaExec> {
+        jvmArgs("--enable-preview")
+        standardInput = System.`in`
     }
 
     // This block specifically configures the `test` task of Gradle
@@ -66,5 +74,6 @@ tasks {
         // In this course we are using JUnit 5, so this line tells Gradle to use that instead
         useJUnitPlatform()
 
+        jvmArgs("--enable-preview")
     }
 }
