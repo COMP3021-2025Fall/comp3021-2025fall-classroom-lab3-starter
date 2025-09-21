@@ -3,7 +3,7 @@ package hk.ust.cse.comp3021.lab3.structure;
 /**
  * This interface should extend {@link Expression} because a value is also a kind of expression in our calculator.
  */
-public interface Value extends Expression {
+public interface Value extends Expression, Comparable<Value> {
     @Override
     default Value eval() {
         return this;
